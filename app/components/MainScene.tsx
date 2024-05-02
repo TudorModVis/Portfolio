@@ -96,7 +96,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
 
   useFrame((state) => {
     tl.seek(scroll.offset * tl.duration());
-    state.camera.position.lerp({x: 0 + (-mouseX / 3000), y: 0.5 + ((mouseY / 3000)), z: 2.15}, 0.1)
+    state.camera.position.lerp({x: 0 + (-mouseX / 5000), y: 0.5 + ((mouseY / 5000)), z: 2.15}, 0.1)
     state.camera.updateProjectionMatrix();
   });
 
@@ -268,9 +268,9 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   return (
     <>
 
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52 + .13, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}>HI, I AM</Text>
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[.08 + .13, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={0.05} maxWidth={1.12}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52 + .13, .5, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}> TUDOR CEBOTARENCO</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.39, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}>HI, I AM</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[.21, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={0.05} maxWidth={1.12}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.39, .5, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}> TUDOR CEBOTARENCO</Text>
       <group {...props} dispose={null}>
         <group position={[0, 0.22, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={100} ref={laptop}>
           <group position={[0, 0, -0.001]} rotation={[Math.PI, 0, Math.PI]} scale={0.247}>
