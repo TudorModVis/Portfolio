@@ -17,6 +17,7 @@ type GLTFResult = GLTF & {
     screenConnector: THREE.Mesh
     screemEdge: THREE.Mesh
     screenBack: THREE.Mesh
+    cameraOuterLayer: THREE.Mesh
     camera: THREE.Mesh
     keys: THREE.Mesh
     mugObject: THREE.Mesh
@@ -53,7 +54,6 @@ type GLTFResult = GLTF & {
     shade: THREE.Mesh
     lightbulb: THREE.Mesh
     bulb: THREE.Mesh
-    setting: THREE.Mesh
     base: THREE.Mesh
     filament: THREE.Mesh
     upper_arm_1: THREE.Mesh
@@ -64,6 +64,7 @@ type GLTFResult = GLTF & {
   materials: {
     blackTexture: THREE.MeshStandardMaterial
     whiteTexture: THREE.MeshStandardMaterial
+    ['lightgreyTexture.1']: THREE.MeshStandardMaterial
     screenTexture: THREE.MeshStandardMaterial
     greyTexture: THREE.MeshStandardMaterial
     mugTexture: THREE.MeshStandardMaterial
@@ -78,7 +79,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Model(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('./models/MainScene.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('./models/HeroScene.glb') as GLTFResult
   const light = useRef<THREE.DirectionalLight>(null);
 
   const laptop = useRef<THREE.Group>(null!);
@@ -94,9 +95,8 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   let mouseY = 0;
 
   useFrame((state) => {
-    console.log(scroll.offset * tl.duration());
     tl.seek(scroll.offset * tl.duration());
-    state.camera.position.lerp({x: 0 + (-mouseX / 1500), y: 0.5 + ((mouseY / 1500)), z: 2.15}, 0.1)
+    state.camera.position.lerp({x: 0 + (-mouseX / 3000), y: 0.5 + ((mouseY / 3000)), z: 2.15}, 0.1)
     state.camera.updateProjectionMatrix();
   });
 
@@ -124,7 +124,6 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     tl.from(
       laptop.current!.position,
       {
-        x: -0.08,
         y: 0.03,
         duration: 3
       },
@@ -239,18 +238,24 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     light.current!.shadow.blurSamples = 25
 
     const bumpTexture = new THREE.TextureLoader().load('./maps/bump-map.jpg')
-    materials.mugTexture.bumpMap = bumpTexture
+
+    const mugTexture = new THREE.TextureLoader().load('./maps/bump-map.jpg')
+    mugTexture.wrapS = bumpTexture.wrapT = THREE.ClampToEdgeWrapping
+    mugTexture.offset.set(.03, .03)
+    mugTexture.repeat.set(.05, .05)
+
+    materials.mugTexture.bumpMap = mugTexture
     materials.mugTexture.bumpScale = 5
     materials['plant&dirt&vaseTexture'].bumpMap = bumpTexture
-    materials['plant&dirt&vaseTexture'].bumpScale = 5
+    materials['plant&dirt&vaseTexture'].bumpScale = 20
     materials.woodenStandTexture.bumpMap = bumpTexture
-    materials.woodenStandTexture.bumpScale = 5
+    materials.woodenStandTexture.bumpScale = 15
     materials.pencilTexture.bumpMap = bumpTexture
     materials.pencilTexture.bumpScale = 5
     materials.lampLowerTexture.bumpMap = bumpTexture
     materials.lampLowerTexture.bumpScale = 5
     materials.lampUpperTexture.bumpMap = bumpTexture
-    materials.lampUpperTexture.bumpScale = 5
+    materials.lampUpperTexture.bumpScale = 10
   }, []);
 
   useEffect(() => {
@@ -262,31 +267,38 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
 
   return (
     <>
-      <Text color="#f1f1f1" anchorX="left" anchorY="middle" position={[-1.52, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>HI, I AM</Text>
-      <Text color="#f1f1f1" anchorX="left" anchorY="middle" position={[.32, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={window.innerWidth / 25900} maxWidth={window.innerWidth / 1150}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
-      <Text color="#f1f1f1" anchorX="left" anchorY="middle" position={[-1.52, .44, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>CEBOTARENCO TUDOR</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>HI, I AM</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[.32, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={window.innerWidth / 25900} maxWidth={window.innerWidth / 1150}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52, .44, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>TUDOR CEBOTARENCO</Text>
       <group {...props} dispose={null}>
-        <group position={[-0.08, 0.22, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={100} ref={laptop}>
-          <group position={[-0.002, 0, -0.001]} rotation={[Math.PI, 0, Math.PI]} scale={0.247}>
-            <mesh geometry={nodes.bottomMainBottom.geometry} material={materials.whiteTexture} castShadow/>
-            <mesh geometry={nodes.bottomMainTop.geometry} material={materials.whiteTexture} castShadow/>
-            <mesh geometry={nodes.bottomDetails.geometry} material={materials.whiteTexture} castShadow/>
-            <mesh geometry={nodes.bottomPorts.geometry} material={materials.blackTexture} castShadow/>
-            <mesh geometry={nodes.bottomPorts_1.geometry} material={materials.blackTexture} castShadow/>
-            <mesh geometry={nodes.bottomPorts_2.geometry} material={materials.blackTexture} castShadow/>
+        <group position={[0, 0.22, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={100} ref={laptop}>
+          <group position={[0, 0, -0.001]} rotation={[Math.PI, 0, Math.PI]} scale={0.247}>
+            <group position={[0.005, 0, 0]}>
+              <mesh geometry={nodes.bottomPorts.geometry} material={materials.blackTexture} castShadow/>
+              <mesh geometry={nodes.bottomPorts_1.geometry} material={materials.blackTexture} castShadow/>
+              <mesh geometry={nodes.bottomPorts_2.geometry} material={materials.blackTexture} castShadow/>
+            </group>
+            <mesh geometry={nodes.bottomMainBottom.geometry} material={materials.whiteTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.bottomMainTop.geometry} material={materials.whiteTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.bottomDetails.geometry} material={materials['lightgreyTexture.1']} position={[0.005, 0, 0]} castShadow/>
           </group>
-          <group position={[-0.002, -0.00015, 0.002]} rotation={[-1.396, 0, Math.PI]} scale={0.247} ref={screen}>
-            <mesh geometry={nodes.screen.geometry} material={materials.screenTexture} castShadow/>
-            <mesh geometry={nodes.screenConnector.geometry} material={materials.whiteTexture} castShadow/>
-            <mesh geometry={nodes.screemEdge.geometry} material={materials.blackTexture} castShadow/>
-            <mesh geometry={nodes.screenBack.geometry} material={materials.whiteTexture} castShadow/>
-            <mesh geometry={nodes.camera.geometry} material={materials.blackTexture} castShadow/>
+          <group position={[0, -0.0001, 0.002]} rotation={[-1.396, 0, Math.PI]} scale={0.247} ref={screen}>
+            <mesh geometry={nodes.screen.geometry} material={materials.screenTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.screenConnector.geometry} material={materials.whiteTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.screemEdge.geometry} material={materials.blackTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.screenBack.geometry} material={materials.whiteTexture} position={[0.005, 0, 0]} castShadow/>
+            <mesh geometry={nodes.cameraOuterLayer.geometry} material={materials['lightgreyTexture.1']} position={[0, 0.001, 0.024]} castShadow/>
+            <mesh geometry={nodes.camera.geometry} material={materials.blackTexture} position={[0.005, 0, 0]} castShadow/>
           </group>
-          <mesh geometry={nodes.keys.geometry} material={materials.greyTexture} position={[0.001, 0, 0]} rotation={[0, 0, Math.PI]} scale={0.247} castShadow/>
+          <mesh geometry={nodes.keys.geometry} material={materials.greyTexture} position={[0.002, 0, 0]} rotation={[0, 0, Math.PI]} scale={0.247} castShadow/>
         </group>
+
         <group position={[-0.95, 0.12, 0.25]} rotation={[0.35, 0, 0]} ref={mug}>
-          <mesh geometry={nodes.mugObject.geometry} material={materials.mugTexture} position={[0.048, 0, -0.038]} rotation={[Math.PI, -Math.PI / 4, Math.PI]} castShadow/>
+          <group position={[0.896, 0, -0.196]}>
+            <mesh geometry={nodes.mugObject.geometry} material={materials.mugTexture} position={[-0.848, 0, 0.158]} rotation={[Math.PI, -Math.PI / 4, Math.PI]} castShadow/>
+          </group>
         </group>
+
         <group ref={plant} position={[0.18, 0.25, 0]} rotation={[-0.15, 0, -0.15]}>
           <group position={[0.877, 0, -0.068]} rotation={[0, -1.571, 0]}>
             <group position={[0, 0.271, 0]}>
@@ -338,8 +350,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
                 <mesh geometry={nodes.shade.geometry} material={materials.lampUpperTexture} position={[0, 0.015, 0.259]}/>
                 <mesh geometry={nodes.lightbulb.geometry} material={materials.lampUpperTexture} position={[0, 0, 0.159]}>
                   <mesh geometry={nodes.bulb.geometry} material={materials.lampUpperTexture} position={[0, 0, 0.105]}/>
-                  <mesh geometry={nodes.setting.geometry} material={materials.lampUpperTexture} position={[0, 0, 0.03]}/>
-                  <mesh geometry={nodes.base.geometry} material={materials.lampUpperTexture} position={[0, 0, 0.003]}/>
+                  <mesh geometry={nodes.base.geometry} material={materials['lightgreyTexture.1']} position={[0, 0, 0.003]}/>
                   <mesh geometry={nodes.filament.geometry} material={materials.lampUpperTexture} position={[0.001, 0, 0.069]}/>
                 </mesh>
               </mesh>
@@ -361,4 +372,4 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('./models/MainScene.glb')
+useGLTF.preload('./models/HeroScene.glb')
