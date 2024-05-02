@@ -15,11 +15,11 @@ export default function Content () {
             <div className="w-screen">
                 <div className="h-screen flex justify-center pt-[24.4vh]">
                     <div className="w-[72vw]">
-                        <div className="flex items-center gap-[5.5%]">
+                        <div className="flex items-center gap-[1%]">
                             <h1 className="text-[6vw] w-[55%] font-bold">HI, I AM A</h1>
                             <p className="text-[1.25vw] flex-1">A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</p>
                         </div>
-                        <h1 className="text-[6vw] font-bold">CEBOTARENCO TUDOR</h1>
+                        <h1 className="text-[6vw] font-bold">TUDOR CEBOTARENCO</h1>
                     </div>
                 </div>
             </div>

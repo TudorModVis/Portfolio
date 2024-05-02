@@ -267,9 +267,10 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
 
   return (
     <>
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>HI, I AM</Text>
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[.32, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={window.innerWidth / 25900} maxWidth={window.innerWidth / 1150}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
-      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52, .44, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={window.innerWidth / 5400}>TUDOR CEBOTARENCO</Text>
+
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52 + .13, .82, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}>HI, I AM</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[.08 + .13, .82, -1]} font="./fonts/JetBrainsMono-Medium.ttf" fontSize={0.05} maxWidth={1.12}>A creative developer with comprehended knowledge in front-end & back-end aka full-stack developer.</Text>
+      <Text material={new THREE.MeshBasicMaterial({color: 0xf1f1f1, toneMapped: false})} anchorX="left" anchorY="middle" position={[-1.52 + .13, .5, -1]} font="./fonts/JetBrainsMono-Bold.ttf" fontSize={0.25}> TUDOR CEBOTARENCO</Text>
       <group {...props} dispose={null}>
         <group position={[0, 0.22, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={100} ref={laptop}>
           <group position={[0, 0, -0.001]} rotation={[Math.PI, 0, Math.PI]} scale={0.247}>

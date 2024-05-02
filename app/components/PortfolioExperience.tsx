@@ -1,7 +1,4 @@
 import { OrbitControls, ScrollControls } from "@react-three/drei";
-import Laptop from "./Laptop";
-import { AxesHelper, DirectionalLight, PerspectiveCamera } from "three";
-import { useLayoutEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import Content from "./Content";
 import MainScene from "./MainScene";
