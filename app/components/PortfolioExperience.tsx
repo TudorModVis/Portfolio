@@ -14,7 +14,6 @@ export default function TvExperience () {
             <hemisphereLight />
             {/* <OrbitControls enableZoom={false}/> */}
             <ScrollControls damping={0.25}>
-                {/* <Content /> */}
                 <MainScene />
             </ScrollControls>
         </>

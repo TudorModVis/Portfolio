@@ -26,3 +26,19 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+p, button, a {
+  font-size: 16px;
+}
