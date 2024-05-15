@@ -18,10 +18,10 @@ export default function Title ({title, className}: TitleProps) {
         anim.current = gsap.to(titleRef.current,
         {
             keyframes: [
-                {text: "####"},
-                // {text: randomString(title.length)},
-                // {text: randomString(title.length)},
-                // {text: randomString(title.length)},
+                {text: randomString(title.length)},
+                {text: randomString(title.length)},
+                {text: randomString(title.length)},
+                {text: randomString(title.length)},
                 {text: title}
             ],
             duration: .5,
@@ -31,14 +31,14 @@ export default function Title ({title, className}: TitleProps) {
 
     return (
         <>
-            <div className={className} ref={titleRef} onMouseEnter={() => {anim.current!.play(); console.log('enter')}} onMouseLeave={() => {anim.current!.reverse()}}>{title}</div>
+            <div className={className} ref={titleRef} onMouseEnter={() => {anim.current!.play()}} onMouseLeave={() => {anim.current!.reverse()}}>{title}</div>
         </>
     )
 }
 
 function randomString (length: number) {
     let result = '';
-    const characters = '!@#$%^&*~';
+    const characters = '@#$%^&*~QWERTYUIOPASDFGHJKLZXCVBNM';
     const charactersLength = characters.length;
     let counter = 0;
     while (counter < length) {
