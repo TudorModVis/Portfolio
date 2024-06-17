@@ -13,7 +13,7 @@ export default function Page () {
         }}>
         <PortfolioExperience />
       </Canvas>
-      <Content />
+      {/* <Content /> */}
     </>
   )
 }

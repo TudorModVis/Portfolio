@@ -4,6 +4,7 @@ import { useGLTF, PerspectiveCamera, useScroll, Text } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useFrame } from '@react-three/fiber'
 import {gsap} from 'gsap'
+import { useRouter } from 'next/navigation'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -81,6 +82,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('./models/HeroScene.glb') as GLTFResult
   const light = useRef<THREE.DirectionalLight>(null);
+  const router = useRouter();
 
   const laptop = useRef<THREE.Group>(null!);
   const screen = useRef<THREE.Group>(null!);
@@ -90,6 +92,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   const pen = useRef<THREE.Group>(null!);
   
   const tl = gsap.timeline();
+
   const scroll = useScroll();
   let mouseX = 0;
   let mouseY = 0;
@@ -221,7 +224,6 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
       },
       0
     )
-
     
   }, [])
 
@@ -244,6 +246,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     mugTexture.offset.set(.03, .03)
     mugTexture.repeat.set(.05, .05)
 
+    materials.whiteTexture.emissiveIntensity = 0;
     materials.mugTexture.bumpMap = mugTexture
     materials.mugTexture.bumpScale = 5
     materials['plant&dirt&vaseTexture'].bumpMap = bumpTexture
@@ -256,6 +259,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     materials.lampLowerTexture.bumpScale = 5
     materials.lampUpperTexture.bumpMap = bumpTexture
     materials.lampUpperTexture.bumpScale = 10
+    materials.lampUpperTexture.emissive
   }, []);
 
   useEffect(() => {
